@@ -5,7 +5,7 @@ import {
   Switch,
 }                              from 'react-router-dom';
 
-import HomePage                from '../HomePage';
+import HomePage                from '../pages/HomePage';
 
 export default (
   <Router>

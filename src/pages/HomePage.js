@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import styled               from 'styled-components';
+
+import MovieImage           from '../components/MovieImage';
 
 class HomePage extends Component {
   constructor(props) {
@@ -19,18 +22,30 @@ class HomePage extends Component {
     const { movies } = this.state
 
     return (
-      <>
+      <Wrapper>
         {
-          movies.map(movie =>
-            <div key={movie.id}>
-              <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`${movie.original_title} poster`}/>
+          movies.map((movie, index) =>
+            <Item key={movie.id} clearfix>
+              <MovieImage url={movie.poster_path} />
               <h2>{movie.original_title}</h2>
-            </div>
+              <p>{movie.overview}</p>
+            </Item>
           )
         }
-      </>
+      </Wrapper>
     );
   }
 }
+
+const Wrapper = styled.div`
+  display   : flex;
+  flex-wrap : wrap;
+  padding   : 5%;
+`;
+
+const Item = styled.div`
+  flex   : 1 0 21%;
+  margin : 5px;
+`;
 
 export default HomePage;
