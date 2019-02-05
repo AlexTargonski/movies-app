@@ -1,17 +1,28 @@
-import React  from 'react';
-import styled from 'styled-components';
+import React       from 'react';
+import styled      from 'styled-components';
+
+import SearchInput from '../components/SearchInput';
 
 const Header = () => (
   <Navbar>
-    <h1>MoviesSearch</h1>
+    <Headline>
+      MoviesSearch
+    </Headline>
+    <SearchInput />
   </Navbar>
 );
 
 const Navbar = styled.div`
-  width      : 100%;
-  background : #2d2a41;
-  padding    : 5px 5%;
-  color      : #ffff;
+  display        : flex;
+  flex-direction : row;
+  width          : 100%;
+  background     : #2d2a41;
+  padding        : 15px 5%;
+  color          : #ffff;
+`;
+
+const Headline = styled.h1`
+  margin : 0;
 `;
 
 export default Header;
