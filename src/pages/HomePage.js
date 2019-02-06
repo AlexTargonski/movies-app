@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled               from 'styled-components';
+import { Link }             from 'react-router-dom';
 
 import MovieImage           from '../components/MovieImage';
 
@@ -26,9 +27,11 @@ class HomePage extends Component {
         {
           movies.map((movie, index) =>
             <Item key={movie.id} clearfix>
-              <MovieImage url={movie.poster_path} />
-              <h2>{movie.original_title}</h2>
-              <p>{movie.overview}</p>
+              <Link to={`/movies/${movie.id}`}>
+                <MovieImage url={movie.poster_path} />
+                <h2>{movie.original_title}</h2>
+                <p>{movie.overview}</p>
+              </Link>
             </Item>
           )
         }
