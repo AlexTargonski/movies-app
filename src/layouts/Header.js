@@ -15,7 +15,6 @@ const Header = () => (
 const Navbar = styled.div`
   display        : flex;
   flex-direction : row;
-  width          : 100%;
   background     : #2d2a41;
   padding        : 15px 5%;
   color          : #ffff;
