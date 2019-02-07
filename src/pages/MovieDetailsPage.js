@@ -3,6 +3,7 @@ import styled               from 'styled-components';
 import { withRouter }       from 'react-router';
 
 import MovieImage           from '../components/MovieImage';
+import MovieSpec            from '../components/MovieSpec';
 
 class MovieDetailsPage extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class MovieDetailsPage extends Component {
 
   render() {
     const { movie, loaded } = this.state
-    console.log(this.state)
+
     return (
       <Wrapper>
         {
@@ -34,23 +35,15 @@ class MovieDetailsPage extends Component {
               <MovieImage url={movie.poster_path} />
             </MovieImageWrapper>
             <Details>
-              <h1>{movie.original_title}</h1>
-              <h3>
-                Country:
-                {movie.production_countries.map(c => `${c.name} `)}
-              </h3>
-              <h3>
-                Release:
-                {movie.release_date}
-              </h3>
-              <h3>
-                Genres:
-                {movie.genres.map(g => `${g.name} `)}
-              </h3>
-              <h3>
-                Average vote:
-                {movie.vote_average}
-              </h3>
+              <MovieSpec
+                title={movie.original_title}
+                countries={movie.production_countries}
+                release={movie.release_date}
+                genres={movie.genres}
+                voteAverage={movie.vote_average}
+                language={movie.original_language}
+                budget={movie.budget}
+              />
               <p>
                 {movie.overview}
               </p>
