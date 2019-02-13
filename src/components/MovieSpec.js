@@ -24,7 +24,7 @@ const MovieSpec = ({
       {release}
     </h3>
     <h3>
-      Budget: {budget}$
+      Budget: ${new Intl.NumberFormat().format(budget)}
     </h3>
     <h3>
       Genres:
