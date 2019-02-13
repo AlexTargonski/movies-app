@@ -72,14 +72,12 @@ class MovieDetailsPage extends Component {
             recommended.loaded?
             <RecommendedMovies>
               {
-                recommended.data.results.map((movie, index) =>
-                  index < 5 &&
-                  <Link
-                    to={`/${movie.id}`}
-                    key={movie.id}
-                  >
-                    <MovieImage url={movie.poster_path} />
-                  </Link>
+                recommended.data.results.map(movie =>
+                  <RecommendedItem key={movie.id}>
+                    <Link to={`/${movie.id}`}>
+                      <MovieImage url={movie.poster_path} />
+                    </Link>
+                  </RecommendedItem>
                 )
               }
             </RecommendedMovies>
@@ -114,9 +112,13 @@ const RecommendedMoviesWrapper = styled.div`
 `;
 
 const RecommendedMovies = styled.div`
-  display        : flex;
-  flex-direction : row;
-  width          : 100%;
+  display   : flex;
+  flex-wrap : wrap;
+  width     : 100%;
+`;
+
+const RecommendedItem = styled.div`
+  flex : 1 0 21%;
 `;
 
 export default withRouter(MovieDetailsPage);
