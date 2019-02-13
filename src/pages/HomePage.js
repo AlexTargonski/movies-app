@@ -26,7 +26,7 @@ class HomePage extends Component {
       <Wrapper>
         {
           movies.map((movie, index) =>
-            <Item key={movie.id} clearfix>
+            <Item key={movie.id}>
               <Link to={`/movies/${movie.id}`}>
                 <MovieImage url={movie.poster_path} />
                 <h2>{movie.original_title}</h2>
