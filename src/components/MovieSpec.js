@@ -1,5 +1,6 @@
-import React  from 'react';
-import styled from 'styled-components';
+import React               from 'react';
+import styled              from 'styled-components';
+import StarRatingComponent from 'react-star-rating-component';
 
 const MovieSpec = ({
   title,
@@ -33,6 +34,12 @@ const MovieSpec = ({
     <h3>
       Average vote:
       {voteAverage}
+      <StarRatingComponent
+        name="rate2"
+        editing={false}
+        starCount={10}
+        value={voteAverage}
+      />
     </h3>
   </Wrapper>
 );
