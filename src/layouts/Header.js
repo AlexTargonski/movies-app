@@ -1,13 +1,14 @@
 import React       from 'react';
 import styled      from 'styled-components';
+import { Link }    from 'react-router-dom';
 
 import SearchInput from '../components/SearchInput';
 
 const Header = () => (
   <Navbar>
-    <Headline>
+    <HeadlineLink to="/">
       MoviesSearch
-    </Headline>
+    </HeadlineLink>
     <SearchInput />
   </Navbar>
 );
@@ -17,11 +18,12 @@ const Navbar = styled.div`
   flex-direction : row;
   background     : #2d2a41;
   padding        : 15px 5%;
-  color          : #ffff;
 `;
 
-const Headline = styled.h1`
-  margin : 0;
+const HeadlineLink = styled(Link)`
+  color           : #ffff;
+  font-size       : 25px;
+  text-decoration : none;
 `;
 
 export default Header;

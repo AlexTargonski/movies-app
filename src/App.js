@@ -2,7 +2,6 @@ import React, { Component }  from 'react';
 
 import routes                from './routes';
 import { createGlobalStyle } from 'styled-components';
-import Header                from './layouts/Header';
 
 import './App.css';
 
@@ -12,7 +11,6 @@ class App extends Component {
     return (
       <div>
         <GlobalStyle />
-        <Header />
         {routes}
       </div>
     );

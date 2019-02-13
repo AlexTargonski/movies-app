@@ -8,13 +8,17 @@ import {
 
 import HomePage                from '../pages/HomePage';
 import MovieDetailsPage        from '../pages/MovieDetailsPage';
+import Header                  from '../layouts/Header';
 
 export default (
   <Router>
-    <Switch>
-      <Route exact path="/"     component={HomePage} />
-      <Route path="/movies/:id" component={MovieDetailsPage} />
-      <Redirect from="/:id" to="/movies/:id" />
-    </Switch>
+    <>
+      <Header />
+      <Switch>
+        <Route exact path="/"     component={HomePage} />
+        <Route path="/movies/:id" component={MovieDetailsPage} />
+        <Redirect from="/:id" to="/movies/:id" />
+      </Switch>
+    </>
   </Router>
 );
