@@ -30,7 +30,6 @@ class HomePage extends Component {
               <Link to={`/movies/${movie.id}`}>
                 <MovieImage url={movie.poster_path} />
                 <h2>{movie.original_title}</h2>
-                <p>{movie.overview}</p>
               </Link>
             </Item>
           )
