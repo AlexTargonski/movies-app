@@ -1,16 +1,44 @@
-import React  from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react';
+import styled               from 'styled-components';
 
-const SearchInput = () => (
-  <Wrapper>
-    <Input
-      type="text"
-    />
-    <Button>
-      Search
-    </Button>
-  </Wrapper>
-);
+class SearchInput extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      query : '',
+    }
+
+    this.handleChange    = this.handleChange.bind(this);
+    this.getSerchResults = this.getSerchResults.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({ query : e.target.value });
+  }
+
+  getSerchResults() {
+    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TOKEN}&language=en-US&query=${this.state.query}&page=1&include_adult=false`)
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log(error));
+  }
+
+  render() {
+    const { movies } = this.state
+
+    return (
+      <Wrapper>
+        <Input
+          type="text"
+          onChange={this.handleChange}
+        />
+        <Button onClick={this.getSerchResults}>
+          Search
+        </Button>
+      </Wrapper>
+    );
+  }
+}
 
 const Wrapper = styled.div`
   width           : 70%;

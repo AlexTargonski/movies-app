@@ -19,6 +19,10 @@ class HomePage extends Component {
       .catch(error => console.log(error));
   }
 
+  getSearchResults() {
+
+  }
+
   render() {
     const { movies } = this.state
 
