@@ -24,8 +24,6 @@ class SearchInput extends Component {
   }
 
   render() {
-    const { movies } = this.state
-
     return (
       <Wrapper>
         <Input
