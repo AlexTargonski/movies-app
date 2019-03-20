@@ -1,30 +1,24 @@
 import React, { Component } from 'react';
 import styled               from 'styled-components';
 import { Link }             from 'react-router-dom';
+import { connect }          from 'react-redux';
 
 import MovieImage           from '../components/MovieImage';
+import { getMovies }        from '../actions/movies';
 
 class HomePage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movies : [],
-    }
-  }
 
   componentDidMount() {
-    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TOKEN}&language=en-US&page=1`)
-      .then(response => response.json())
-      .then(result => this.setState({ movies : result.results }))
-      .catch(error => console.log(error));
+    this.props.fetchMovies();
   }
 
   render() {
-    const { movies } = this.state
+    const { movies } = this.props.moviesList
 
     return (
       <Wrapper>
         {
+          movies &&
           movies.map((movie, index) =>
             <Item key={movie.id}>
               <Link to={`/movies/${movie.id}`}>
@@ -50,4 +44,14 @@ const Item = styled.div`
   margin : 5px;
 `;
 
-export default HomePage;
+const mapStateToProps = state => ({
+  moviesList : state.movies,
+})
+
+const mapDispatchToProps = dispatch => ({
+  fetchMovies : () => {
+    dispatch(getMovies());
+  },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
