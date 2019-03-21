@@ -1,7 +1,9 @@
 import React, { Component }  from 'react';
+import { Provider }          from 'react-redux'
 
 import routes                from './routes';
 import { createGlobalStyle } from 'styled-components';
+import store                 from './store';
 
 import './App.css';
 
@@ -9,10 +11,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <Provider store={store}>
         <GlobalStyle />
         {routes}
-      </div>
+      </Provider>
     );
   }
 }
