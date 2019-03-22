@@ -1,6 +1,6 @@
 import { GET_MOVIES } from '../constants';
 
-export default function tasks(state = [], action) {
+export default function movies(state = [], action) {
 
   switch (action.type) {
     case GET_MOVIES:
