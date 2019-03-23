@@ -1,17 +1,16 @@
 import React               from 'react';
-import styled              from 'styled-components';
 import StarRatingComponent from 'react-star-rating-component';
 
 const MovieSpec = ({
-  title,
-  countries,
-  release,
-  genres,
-  voteAverage,
-  language,
-  budget,
+    title,
+    countries,
+    release,
+    genres,
+    voteAverage,
+    language,
+    budget,
 }) => (
-  <Wrapper>
+  <>
     <h1>{title}</h1>
     <h3>
       Country:
@@ -41,11 +40,7 @@ const MovieSpec = ({
         value={voteAverage}
       />
     </h3>
-  </Wrapper>
+  </>
 );
-
-const Wrapper = styled.div`
-  padding : 15px;
-`;
 
 export default MovieSpec;

@@ -2,18 +2,16 @@ import React, { Component } from 'react';
 import styled               from 'styled-components';
 import { withRouter }       from 'react-router';
 import { Link }             from 'react-router-dom';
+import { connect }          from 'react-redux';
 
 import MovieImage           from '../components/MovieImage';
-import MovieSpec            from '../components/MovieSpec';
+import MovieDetails         from '../components/MovieDetails';
+import { getMovie }         from '../actions/movie';
 
 class MovieDetailsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movie  : {
-        details : {},
-        loaded  : false,
-      },
       recommended : {
         data    : {},
         loaded  : false,
@@ -24,10 +22,7 @@ class MovieDetailsPage extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
 
-    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TOKEN}&language=en-US`)
-      .then(response => response.json())
-      .then(result => this.setState({ movie : { details : result, loaded : true }}))
-      .catch(error => console.log(error));
+    this.props.fetchMovie(id);
 
     fetch(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${process.env.REACT_APP_TOKEN}&language=en-US&page=1`)
       .then(response => response.json())
@@ -36,34 +31,19 @@ class MovieDetailsPage extends Component {
   }
 
   render() {
-    const { movie, recommended } = this.state
+    const { recommended } = this.state;
+    const { movie } = this.props.movieDetails;
 
     return (
       <>
         <DetailsWrapper>
           {
-            movie.loaded?
-            <>
-              <MovieImageWrapper>
-                <MovieImage url={movie.details.poster_path} />
-              </MovieImageWrapper>
-              <Details>
-                <MovieSpec
-                  title={movie.details.original_title}
-                  countries={movie.details.production_countries}
-                  release={movie.details.release_date}
-                  genres={movie.details.genres}
-                  voteAverage={movie.details.vote_average}
-                  language={movie.details.original_language}
-                  budget={movie.details.budget}
-                />
-                <p>
-                  {movie.details.overview}
-                </p>
-              </Details>
-            </>
+            movie ?
+            <MovieDetails
+              movie={movie}
+            />
             :
-            <p>loading...</p>
+            <p>Loading</p>
           }
         </DetailsWrapper>
         <RecommendedMoviesWrapper>
@@ -95,16 +75,6 @@ const DetailsWrapper = styled.div`
   flex-direction : row;
 `;
 
-const MovieImageWrapper = styled.div`
-  width : 40%;
-`;
-
-const Details = styled.div`
-  display        : flex;
-  flex-direction : column;
-  width          : 50%;
-`;
-
 const RecommendedMoviesWrapper = styled.div`
   display        : flex;
   flex-direction : column;
@@ -121,4 +91,14 @@ const RecommendedItem = styled.div`
   flex : 1 0 21%;
 `;
 
-export default withRouter(MovieDetailsPage);
+const mapStateToProps = state => ({
+  movieDetails : state.movie,
+})
+
+const mapDispatchToProps = dispatch => ({
+  fetchMovie : (id) => {
+    dispatch(getMovie(id));
+  },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MovieDetailsPage));

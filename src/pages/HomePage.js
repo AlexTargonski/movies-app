@@ -13,7 +13,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { movies } = this.props.moviesList
+    const { movies } = this.props.moviesList;
 
     return (
       <Wrapper>
