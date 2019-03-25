@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import styled               from 'styled-components';
-import { withRouter }       from 'react-router';
-import { Link }             from 'react-router-dom';
-import { connect }          from 'react-redux';
+import React, { Component }     from 'react';
+import styled                   from 'styled-components';
+import { withRouter }           from 'react-router';
+import { Link }                 from 'react-router-dom';
+import { connect }              from 'react-redux';
 
-import MovieImage           from '../components/MovieImage';
-import MovieDetails         from '../components/MovieDetails';
-import { getMovie }         from '../actions/movie';
+import MovieImage               from '../components/MovieImage';
+import MovieDetails             from '../components/MovieDetails';
+import { getMovie }             from '../actions/movie';
+import { getRecommendedMovies } from '../actions/movies';
 
 class MovieDetailsPage extends Component {
   constructor(props) {
@@ -23,15 +24,11 @@ class MovieDetailsPage extends Component {
     const { id } = this.props.match.params;
 
     this.props.fetchMovie(id);
-
-    fetch(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${process.env.REACT_APP_TOKEN}&language=en-US&page=1`)
-      .then(response => response.json())
-      .then(result => this.setState({ recommended : { data : result, loaded : true }}))
-      .catch(error => console.log(error));
+    this.props.fetchRecommendedMovies(id);
   }
 
   render() {
-    const { recommended } = this.state;
+    const { movies } = this.props.recommendedMovies;
     const { movie } = this.props.movieDetails;
 
     return (
@@ -49,10 +46,10 @@ class MovieDetailsPage extends Component {
         <RecommendedMoviesWrapper>
           <h2>Recommended Movies :</h2>
           {
-            recommended.loaded?
+            movies?
             <RecommendedMovies>
               {
-                recommended.data.results.map(movie =>
+                movies.map(movie =>
                   <RecommendedItem key={movie.id}>
                     <Link to={`/${movie.id}`}>
                       <MovieImage url={movie.poster_path} />
@@ -92,12 +89,17 @@ const RecommendedItem = styled.div`
 `;
 
 const mapStateToProps = state => ({
-  movieDetails : state.movie,
+  movieDetails      : state.movie,
+  recommendedMovies : state.movies,
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchMovie : (id) => {
+  fetchMovie            : id => {
     dispatch(getMovie(id));
+  },
+
+  fetchRecommendedMovies : id => {
+    dispatch(getRecommendedMovies(id));
   },
 })
 
