@@ -14,7 +14,6 @@ class Header extends Component {
   }
 
   handleFindMovies = e => {
-    console.log(e)
     this.setState({ searchQuery : e.target.value });
   }
 
