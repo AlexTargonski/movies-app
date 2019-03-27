@@ -22,7 +22,6 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <Navbar>
         <HeadlineLink to="/">
