@@ -1,6 +1,7 @@
 import {
   GET_MOVIES,
   GET_RECOMMENDED_MOVIES,
+  FIND_MOVIES,
 }                         from '../constants';
 
 export default function movies(state = [], action) {
@@ -13,6 +14,12 @@ export default function movies(state = [], action) {
       };
 
     case GET_RECOMMENDED_MOVIES:
+      return {
+        ...state,
+        movies : action.payload
+      };
+
+    case FIND_MOVIES:
       return {
         ...state,
         movies : action.payload

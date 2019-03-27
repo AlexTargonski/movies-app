@@ -3,6 +3,7 @@ import axios              from 'axios';
 import {
   GET_MOVIES,
   GET_RECOMMENDED_MOVIES,
+  FIND_MOVIES,
 }                         from '../constants';
 
 export function getMovies() {
@@ -25,6 +26,21 @@ export function getRecommendedMovies(id) {
       .then(res => {
         if (res.status === 200) {
           dispatch({ type: GET_RECOMMENDED_MOVIES, payload: res.data.results });
+        }
+      })
+      .catch(err => {
+        console.error("error: ", err);
+      })
+  }
+}
+
+export function findMovies(query) {
+  return function(dispatch) {
+    axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TOKEN}&language=en-US&query=${query}&page=1&include_adult=false`)
+      .then(res => {
+        console.log(res)
+        if (res.status === 200) {
+          dispatch({ type: FIND_MOVIES, payload: res.data.results });
         }
       })
       .catch(err => {

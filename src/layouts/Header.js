@@ -1,17 +1,43 @@
-import React       from 'react';
-import styled      from 'styled-components';
-import { Link }    from 'react-router-dom';
+import React, { Component } from 'react';
+import styled               from 'styled-components';
+import { Link }             from 'react-router-dom';
+import { connect }          from 'react-redux';
 
-import SearchInput from '../components/SearchInput';
+import { findMovies }       from '../actions/movies';
 
-const Header = () => (
-  <Navbar>
-    <HeadlineLink to="/">
-      MoviesSearch
-    </HeadlineLink>
-    <SearchInput />
-  </Navbar>
-);
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchQuery : '',
+    };
+  }
+
+  handleFindMovies = e => {
+    console.log(e)
+    this.setState({ searchQuery : e.target.value });
+  }
+
+  handleSubmit = () => {
+    this.props.findByQueryMovies(this.state.searchQuery);
+  }
+
+  render() {
+    console.log(this.state)
+    return (
+      <Navbar>
+        <HeadlineLink to="/">
+          MoviesSearch
+        </HeadlineLink>
+        <input
+          type="text"
+          onChange={this.handleFindMovies}
+        />
+        <button onClick={this.handleSubmit}>Search</button>
+      </Navbar>
+    );
+  }
+}
 
 const Navbar = styled.div`
   display        : flex;
@@ -26,4 +52,10 @@ const HeadlineLink = styled(Link)`
   text-decoration : none;
 `;
 
-export default Header;
+const mapDispatchToProps = dispatch => ({
+  findByQueryMovies : query => {
+    dispatch(findMovies(query));
+  },
+})
+
+export default connect(null, mapDispatchToProps)(Header);
