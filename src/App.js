@@ -5,8 +5,6 @@ import routes                from './routes';
 import { createGlobalStyle } from 'styled-components';
 import store                 from './store';
 
-import './App.css';
-
 class App extends Component {
 
   render() {
