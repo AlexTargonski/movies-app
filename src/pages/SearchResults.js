@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import styled               from 'styled-components';
-import { Link }             from 'react-router-dom';
-import { connect }          from 'react-redux';
+import React       from 'react';
+import styled      from 'styled-components';
+import { Link }    from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import MovieImage           from '../components/MovieImage';
-import { getMovies }        from '../actions/movies';
+import MovieImage  from '../components/MovieImage';
 
 const SearchResults = ({ searchResults : { search } }) => (
   <SearchResults.Wrapper>
