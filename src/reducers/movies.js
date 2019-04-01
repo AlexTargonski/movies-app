@@ -19,12 +19,6 @@ export default function movies(state = [], action) {
         movies : action.payload
       };
 
-    case FIND_MOVIES:
-      return {
-        ...state,
-        movies : action.payload
-      };
-
     default:
       return state;
   }
