@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled               from 'styled-components';
 import { Link }             from 'react-router-dom';
 import { connect }          from 'react-redux';
+import { withRouter }       from 'react-router-dom';
 
 import { findMovies }       from '../actions/movies';
 
@@ -19,6 +20,8 @@ class Header extends Component {
 
   handleSubmit = () => {
     this.props.findByQueryMovies(this.state.searchQuery);
+    this.props.history.push('/search');
+
   }
 
   render() {
@@ -56,4 +59,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(null, mapDispatchToProps)(withRouter(Header));
