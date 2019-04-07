@@ -21,7 +21,7 @@ class Header extends Component {
     this.setState({ searchQuery : e.target.value });
 
     axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TOKEN}&language=en-US&query=${e.target.value}&page=1&include_adult=false`)
-      .then(res => this.setState({ dropdownMovies : res.data.results, isOpen : true }));
+      .then(res => this.setState({ dropdownMovies : res.data.results.splice(0, 4), isOpen : true }));
   }
 
   handleSubmit = () => {
