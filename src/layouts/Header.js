@@ -40,7 +40,7 @@ class Header extends Component {
           MoviesSearch
         </HeadlineLink>
         <div>
-          <input
+          <SearchInput
             type="text"
             onChange={this.handleFindMovies}
           />
@@ -50,7 +50,7 @@ class Header extends Component {
               {
                 this.state.dropdownMovies.map(movie =>
                   <li key={movie.id}>
-                    <Link to={`/${movie.id}`} onClick={this.hideDropDown}> 
+                    <Link to={`/${movie.id}`} onClick={this.hideDropDown}>
                       <Wrapper>
                         <Image src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`} alt="movie poster"/>
                         <p>{movie.title}</p>
@@ -61,8 +61,10 @@ class Header extends Component {
               }
             </Dropdown>
           }
+          <SearchButton onClick={this.handleSubmit}>
+            Search
+          </SearchButton>
         </div>
-        <button onClick={this.handleSubmit}>Search</button>
       </Navbar>
     );
   }
@@ -81,11 +83,23 @@ const HeadlineLink = styled(Link)`
   text-decoration : none;
 `;
 
+const SearchInput = styled.input`
+  height : 18px;
+`;
+
+const SearchButton = styled.button`
+  background : #459b45;
+  border     : 0;
+  color      : #fff;
+  height     : 25px;
+`;
+
 const Dropdown = styled.ul`
   position   : absolute
   list-style : none;
   background : #fff;
   padding    : 1%;
+  box-shadow : 0px 3px 10px 0px rgba(0,0,0,0.6);
 `;
 
 const Wrapper = styled.div`
