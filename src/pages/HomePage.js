@@ -18,7 +18,7 @@ class HomePage extends Component {
     return (
       <Wrapper>
         {
-          movies &&
+          movies?
           movies.map((movie, index) =>
             <Item key={movie.id}>
               <Link to={`/movies/${movie.id}`}>
@@ -27,6 +27,8 @@ class HomePage extends Component {
               </Link>
             </Item>
           )
+          :
+          <p>Loading...</p>
         }
       </Wrapper>
     );
